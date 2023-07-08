@@ -1,0 +1,8 @@
+Core/MTDataAccess/bin/
+Core/MTDataAccess/obj/
+DB/bin/
+DB/obj/
+Web/multitracks.com/multitracks.com/Bin/
+packages/
+MultiTracksDB.dbmdl
+DB/MultiTracksDB.jfm
