@@ -7,6 +7,7 @@ using DataAccess;
 
 public partial class ArtistDetails : System.Web.UI.Page
 {
+    //Page_Load: Event handler for the page load event. It retrieves the artist ID from the query string and calls other functions to populate the artist details and bind data to repeater controls.
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -68,14 +69,14 @@ public partial class ArtistDetails : System.Web.UI.Page
             }
         }
     }
-
+   // RetrieveArtistDetails: Retrieves the artist details from the database based on the artist ID using a stored procedure.Returns the artist details as a DataTable.
     private DataTable RetrieveArtistDetails(string artistID)
     {
         var sql = new SQL();
         sql.Parameters.Add("@artistID", Convert.ToInt32(artistID));
         return sql.ExecuteStoredProcedureDT("GetArtistDetails");
     }
-
+    //PopulateArtistControls: Populates the artist controls on the page with the data from the provided DataRow object.
     private void PopulateArtistControls(DataRow artistData)
     {
         artistImage.ImageUrl = artistData["ArtistImageURL"].ToString();
@@ -83,31 +84,11 @@ public partial class ArtistDetails : System.Web.UI.Page
         artistNameLiteral.Text = artistData["ArtistTitle"].ToString();
         biographyContentLiteral.Text = artistData["ArtistBiography"].ToString();
     }
-
+    //BindRepeater: Binds a DataTable as the data source for a Repeater control.
     private void BindRepeater(Repeater repeater, DataTable dataSource)
     {
         repeater.DataSource = dataSource;
         repeater.DataBind();
-    }
-
-    private string GetArtistIdByName(string artistName)
-    {
-        // Query the database to find the artist ID by name
-        // For example:
-        var sql = new SQL();
-        sql.Parameters.Add("@artistName", artistName);
-        DataTable result = sql.ExecuteStoredProcedureDT("GetArtistIdByName");
-
-        if (result.Rows.Count > 0)
-        {
-            // If the artist is found, return the artist ID
-            return result.Rows[0]["artistID"].ToString();
-        }
-        else
-        {
-            // If no artist is found, return null or a default value
-            return null;
-        }
     }
 
 }
