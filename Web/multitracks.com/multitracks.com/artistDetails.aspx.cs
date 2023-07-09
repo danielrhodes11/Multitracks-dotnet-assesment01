@@ -13,6 +13,11 @@ public partial class ArtistDetails : System.Web.UI.Page
         {
             string artistID = Request.QueryString["artistID"];
 
+            // If no artistID is provided, set a default value
+            if (string.IsNullOrEmpty(artistID))
+            {
+                artistID = "5";  // Default artistID
+            }
             try
             {
                 DataTable artistDetails = RetrieveArtistDetails(artistID);
@@ -32,8 +37,8 @@ public partial class ArtistDetails : System.Web.UI.Page
 
                         var artistAlbums = artistDetails.AsEnumerable()
                             .Where(row => !row.IsNull("AlbumTitle"))
-                            .GroupBy(row => row.Field<string>("AlbumTitle")) // Group by album title
-                            .Select(group => group.First()) // Select the first row from each group (distinct albums)
+                            .GroupBy(row => row.Field<string>("AlbumTitle"))
+                            .Select(group => group.First())
                             .Take(8)
                             .CopyToDataTable();
 
@@ -84,6 +89,27 @@ public partial class ArtistDetails : System.Web.UI.Page
         repeater.DataSource = dataSource;
         repeater.DataBind();
     }
+
+    private string GetArtistIdByName(string artistName)
+    {
+        // Query the database to find the artist ID by name
+        // For example:
+        var sql = new SQL();
+        sql.Parameters.Add("@artistName", artistName);
+        DataTable result = sql.ExecuteStoredProcedureDT("GetArtistIdByName");
+
+        if (result.Rows.Count > 0)
+        {
+            // If the artist is found, return the artist ID
+            return result.Rows[0]["artistID"].ToString();
+        }
+        else
+        {
+            // If no artist is found, return null or a default value
+            return null;
+        }
+    }
+
 }
 
 

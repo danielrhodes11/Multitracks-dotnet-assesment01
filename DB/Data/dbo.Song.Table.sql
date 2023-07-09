@@ -3,7 +3,7 @@
 SET IDENTITY_INSERT dbo.Song ON 
 
 INSERT dbo.Song (songID, dateCreation, albumID, artistID, title, bpm, timeSignature, multitracks, customMix, chart, rehearsalMix, patches, songSpecificPatches, proPresenter)
-VALUES (19568, CAST(N'2021-03-25T13:14:30.647' AS DateTime), 4603, 165, N'House of the Lord', CAST(86.00 AS Decimal(6, 2)), 3, 0, 1, 0, 0, 1, 0, 0)
+VALUES (19568, CAST(N'2021-03-25T13:14:30.647' AS DateTime), 4603, 165, N'House of the Lord', CAST(86.00 AS Decimal(6, 2)), 3/4, 0, 1, 0, 0, 1, 0, 0)
 
 INSERT dbo.Song (songID, dateCreation, albumID, artistID, title, bpm, timeSignature, multitracks, customMix, chart, rehearsalMix, patches, songSpecificPatches, proPresenter)
 VALUES (17414, CAST(N'2020-08-23T18:13:26.980' AS DateTime), 4603, 165, N'Battle Belongs', CAST(81.00 AS Decimal(6, 2)), 3, 0, 0, 1, 0, 1, 0, 0)
